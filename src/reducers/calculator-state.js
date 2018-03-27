@@ -4,20 +4,37 @@
 
 import {
     ADD_OPERATION,
-    UPDATE_RESULT
+    UPDATE_RESULT,
+    ADD_NUMBER,
+    ERROR
 } from '../actions/index';
 
-const calculatorState = (state = {}, action) => {
+const calculatorState = (state = {operations: []}, action) => {
+    let operations = [...state.operations];
     switch (action.type) {
         case ADD_OPERATION:
-            let operations = {...(state.operations || [])};
-            operations.push(action.value);
+            if(state.isOperation)
+            {
+                operations.pop();
+            }
+            operations.push(action.operation);
             return Object.assign({}, state, {
-                operations
+                operations,
+                isOperation: true
+            });
+        case ADD_NUMBER:
+            operations.push(action.number);
+            return Object.assign({}, state, {
+                operations,
+                isOperation: false
             });
         case UPDATE_RESULT:
             return Object.assign({}, state, {
                 result: action.result
+            });
+        case ERROR:
+            return Object.assign({}, state, {
+                error: action.error
             });
         default:
             return state;

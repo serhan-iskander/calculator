@@ -12,4 +12,5 @@ body {
 }
 .error {
   color:red;
+  font-size: 50%;
 }
