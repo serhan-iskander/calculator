@@ -1,3 +1,3 @@
 export const getServerUrl = () => {
-    return window.location.origin;
+    return "http://localhost:4000";
 };

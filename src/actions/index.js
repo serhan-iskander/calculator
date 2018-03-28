@@ -33,11 +33,12 @@ export const addNumber = (number) => {
     }
 };
 
-export const calculate = (data) => {
-    return dispatch => {
+export const calculate = () => {
+    return (dispatch, getState) => {
+        let data = getState().calculatorState.operations;
         fetch(`${getServerUrl()}/calculate`, {
             method: "POST",
-            data: data,
+            body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json; charset=utf-8'
@@ -49,10 +50,12 @@ export const calculate = (data) => {
                 }
                 else
                 {
-                    dispatch(updateResult(response.data));
+                    return response.json();
                 }
 
-            });
+            }).then((res) => {
+            dispatch(updateResult(res.result));
+        });
     };
 };
 

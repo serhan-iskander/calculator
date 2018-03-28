@@ -62,8 +62,8 @@ const mapDispatchToProps = dispatch => {
         number9Click: () => {
             dispatch(addNumber("9"))
         },
-        calculate: (data) => {
-            dispatch(calculate(data))
+        calculate: () => {
+            dispatch(calculate())
         }
     };
 };
