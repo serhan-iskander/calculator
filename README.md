@@ -9,3 +9,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 needs allot of design, this is just a POC for the task
  
+i hade a problem in fetch as i had no time for a complete fix(for this is a POC)
+i just change "var dns = ('dns');" to var dns = {}; in fetch.js in fetch node_modules.
