@@ -8,7 +8,7 @@ const router = express.Router();
 module.exports = router;
 
 router.all('/calculate', function (req, res, next) {
-    calculate(req.body, res);
+    calculate(req.body, res, next);
 });
 
 
@@ -30,6 +30,7 @@ function calculateResult(firstNumber, secondNumber, currentOperation) {
     }
 }
 
+// combine the numbers and do the operations on them and return a JSON with the result
 function calculate(data, res, next) {
     let inOperation = true;
     let firstNumber = "";
