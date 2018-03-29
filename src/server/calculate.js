@@ -1,4 +1,3 @@
-
 /**
  * Created by serhan.i on 3/27/18.
  */
@@ -13,12 +12,11 @@ router.all('/calculate', function (req, res, next) {
 
 
 function isOperation(value) {
-    return value === "+" || value === "-" || value ==="X" || value === "/";
+    return value === "+" || value === "-" || value === "X" || value === "/";
 }
 
 function calculateResult(firstNumber, secondNumber, currentOperation) {
-    switch(currentOperation)
-    {
+    switch (currentOperation) {
         case "+":
             return parseFloat(firstNumber) + parseFloat(secondNumber);
         case "-":
@@ -30,17 +28,19 @@ function calculateResult(firstNumber, secondNumber, currentOperation) {
     }
 }
 
+function error(res) {
+    res.send(404, 'Operation not Vaild');
+}
+
 function isValid(data) {
-let pattern = /[^\d\+\-X\/]/;
+    let pattern = /[^\d\+\-X\/]/;
     return !pattern.test(data);
 }
 
 // combine the numbers and do the operations on them and return a JSON with the result
 function calculate(data, res) {
-    if(!isValid(data.join("")))
-    {
-        res.send(404, 'Not Supported');
-        return;
+    if (!isValid(data.join(""))) {
+        return error(res);
     }
     let inOperation = true;
     let firstNumber = "";
@@ -48,30 +48,25 @@ function calculate(data, res) {
     let firstNumberSet = false;
     let firstNumberDone = false;
     let currentOperation = "";
-    data.forEach(function(value){
-        if(isOperation(value))
-        {
-            if(inOperation) {
-                res.send(404, 'Not Supported');
-                return;
+    data.forEach(function (value) {
+        if (isOperation(value)) {
+            if (inOperation) {
+                return error(res);
             }
             inOperation = true;
-            if(firstNumberDone)
-            {
+            if (firstNumberDone) {
                 firstNumber = calculateResult(firstNumber, secondNumber, currentOperation);
                 secondNumber = "";
 
             }
-            if(firstNumberSet)
-            {
+            if (firstNumberSet) {
                 firstNumberDone = true;
             }
             currentOperation = value;
         }
-        else{
+        else {
             inOperation = false;
-            if(firstNumberDone)
-            {
+            if (firstNumberDone) {
                 secondNumber += value;
             }
             else {
@@ -80,6 +75,9 @@ function calculate(data, res) {
             }
         }
     });
+    if (!secondNumber) {
+        return error(res);
+    }
     res.send(JSON.stringify({result: calculateResult(firstNumber, secondNumber, currentOperation)}));
     res.end();
 
