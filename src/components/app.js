@@ -6,15 +6,19 @@ export default class App extends React.Component{
     constructor() {
         super();
     }
+
+    componentDidMount(){
+        this.refs.calcControl.focus();
+    }
     render() {
         let result =  this.props.operations.join("")  + (this.props.result ? (" = " + this.props.result) : "");
-        return ( <div id='calc-contain'>
+        return ( <div id='calc-contain'  onKeyUp={this.props.onkeyup}>
             <div  name="answer"> {result}</div>
                     <br/>
             <div name="error" className="error">{this.props.error}</div>
                     <br/>
 
-                        <input type="button" value=" 1 " onClick={this.props.number1Click} />
+                        <input ref="calcControl" type="button" value=" 1 " onClick={this.props.number1Click} />
                         <input type="button" value=" 2 " onClick={this.props.number2Click} />
                         <input type="button" value=" 3 " onClick={this.props.number3Click} />
                         <input type="button" value=" + " onClick={this.props.addClick} />

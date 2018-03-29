@@ -20,6 +20,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "calc": "concurrently --kill-others \"npm run start\" \"node src/server/server.js\""
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
   }
 }

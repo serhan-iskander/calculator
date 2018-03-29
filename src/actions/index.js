@@ -46,15 +46,18 @@ export const calculate = () => {
         })
             .then((response) => {
                 if (!response.ok) {
-                    dispatch(updateError(response.statusText));
+                    response.text().then((error) => {
+                        dispatch(updateError(error));
+                    })
                 }
-                else
-                {
+                 else {
                     return response.json();
                 }
 
             }).then((res) => {
-            dispatch(updateResult(res.result));
+            if (res) {
+                dispatch(updateResult(res.result));
+            }
         });
     };
 };

@@ -64,6 +64,31 @@ const mapDispatchToProps = dispatch => {
         },
         calculate: () => {
             dispatch(calculate())
+        },
+        onkeyup: (e) => {
+            if(e.keyCode >= 48 && e.keyCode <= 57)
+            {
+                dispatch(addNumber(e.keyCode - 48));
+            }
+            else
+            {
+                switch (e.key)
+                {
+                    case "+":
+                    case "-":
+                    case "X":
+                    case "/":
+                        return dispatch(addOperation(e.key));
+                    case "=":
+                    case "Enter":
+                        return dispatch(calculate());
+                    case "*":
+                    case "x":
+                        return dispatch(addOperation("X"));
+
+
+                }
+            }
         }
     };
 };

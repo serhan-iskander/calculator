@@ -30,8 +30,18 @@ function calculateResult(firstNumber, secondNumber, currentOperation) {
     }
 }
 
+function isValid(data) {
+let pattern = /[^\d\+\-X\/]/;
+    return !pattern.test(data);
+}
+
 // combine the numbers and do the operations on them and return a JSON with the result
-function calculate(data, res, next) {
+function calculate(data, res) {
+    if(!isValid(data.join("")))
+    {
+        res.send(404, 'Not Supported');
+        return;
+    }
     let inOperation = true;
     let firstNumber = "";
     let secondNumber = "";
@@ -42,9 +52,7 @@ function calculate(data, res, next) {
         if(isOperation(value))
         {
             if(inOperation) {
-                res.sendStatus(404);
-                let err = new Error('Not Supported');
-                next(err);
+                res.send(404, 'Not Supported');
                 return;
             }
             inOperation = true;
