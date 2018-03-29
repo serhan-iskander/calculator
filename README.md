@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 
 ## Serhan Iskander calculator
+-  setup:
+-     run "npm install"
 
 -  running
 -     run "npm start" in the root folder to run the client
