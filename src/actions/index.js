@@ -1,7 +1,6 @@
 /**
  * Created by serhan.i on 3/27/18.
  */
-import 'fetch';
 import {getServerUrl} from '../common/common';
 
 //const action types
